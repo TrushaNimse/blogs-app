@@ -1,0 +1,80 @@
+
+.mainSection {
+    background-color: lightgrey;
+    height: 100vh;
+}
+.headerSection {
+    background-color: navy;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.blogsHeading {
+    font-size: 26px;
+    padding: 20px;
+    font-weight: 600;
+}
+
+.headerRightSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.loginRegister {
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 10px;
+}
+.outerInnerSection{
+    
+}
+.mainInnerSection {
+    background-color: rgb(238, 238, 238);
+    color: black;
+    padding: 10px;
+    margin: auto;
+    margin-top: 40px;
+    border-radius: 5px;
+    width: 25%;
+    margin-bottom: 400px;
+
+}
+.blogsTitle{
+    font-size: 26px;
+    margin-top: 8px;
+    font-weight: 600;
+}
+.blogsInfo{
+     font-size: 12px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+.loginText{
+    color:navy;
+    font-size:25px;
+    text-align:center;
+    font-weight: 600;
+}
+.label{
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.inputBox{
+    width: 95%;
+    padding: 5px;
+}
+.loginButton{
+    margin-top:20px;
+    background-color:navy;
+    padding:8px;color:white;
+    border:none;
+    border-radius:5px;
+    width:100%;
+    margin-bottom:95px;
+
+}
