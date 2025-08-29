@@ -1,8 +1,8 @@
-
 .mainSection {
     background-color: lightgrey;
     height: 100vh;
 }
+
 .headerSection {
     background-color: navy;
     color: white;
@@ -30,49 +30,37 @@
     margin-right: 10px;
 }
 
-.mainInnerSection {
+.secondSection {
     background-color: rgb(238, 238, 238);
     color: black;
-    padding: 10px;
+    padding: 15px;
     margin: auto;
-    margin-top: 40px;
-    border-radius: 5px;
-    width: 25%;
-    margin-bottom: 400px;
+    margin-top: 25px;
+    border-radius: 3px;
+    width: 70%;
 
 }
-.blogsTitle{
-    font-size: 26px;
-    margin-top: 8px;
-    font-weight: 600;
+.buttonSection{
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
-.blogsInfo{
-     font-size: 12px;
-    margin-top: 10px;
-    font-weight: 600;
+.loginButton1 {
+    background-color: navy;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-right: 8PX;
 }
-.loginText{
-    color:navy;
-    font-size:25px;
-    text-align:center;
-    font-weight: 600;
-}
-.label{
-    margin-top: 10px;
-    font-size: 15px;
-    font-weight: 600;
-}
-.inputBox{
-    width: 95%;
-    padding: 5px;
-}
-.loginButton{
-    margin-top:20px;
+
+.registerButton1 {
     background-color:navy;
-    padding:8px;color:white;
+    color:white;
+    padding:10px;
     border:none;
     border-radius:5px;
-    width:100%;
-    margin-bottom:95px;
-
+    font-weight:bold;
+    margin-left:10PX;
 }
