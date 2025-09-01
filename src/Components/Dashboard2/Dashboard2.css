@@ -1,0 +1,159 @@
+.wholeBodySection1 {
+    background-color: lightgrey;
+    height: 200vh;
+}
+
+.headerSection {
+    background-color: navy;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.blogsTitle {
+    font-size: 26px;
+    font-weight: 600;
+    padding: 20px;
+}
+
+.headerRightSection {
+    display: flex;
+}
+
+.headerRightSectionTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 25px;
+    background-color: navy;
+    border: none;
+    color: white;
+}
+
+/* .logoutSymbol {
+    display: flex;
+    align-items: center;
+} */
+
+.secondInnerSection {
+    /* margin: 0px 45px; */
+    width: 70%;
+    margin: auto;
+}
+
+.secondInnerHeadSection {
+    margin-left: 145;
+    font-size: 30;
+    margin-top: 10;
+    display: flex;
+    gap: 74%;
+    align-items: center;
+}
+.blogsHeadTag1{
+    font-size: 35px ;
+}
+.blogsTag {
+    font-size: 8px;
+    font-weight: 600;
+    margin-top: 8px
+}
+/* 
+.fa-arrow-circle-o-right {
+    margin-right: 3px;
+} */
+
+.createButton {
+    background-color: navy;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+
+}
+
+.innerTextBox {
+    background-color: rgb(238, 238, 238);
+    color: black;
+    margin-left: 145;
+    padding: 10px;
+    margin-right: 145;
+    font-size: 28;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.personalInfoSection {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 8;
+    font-size: 18px;
+}
+
+.CreationText {
+    font-size: 13px;
+
+}
+
+.info {
+    font-size: 14px;
+    color: rgb(130, 130, 130)
+}
+
+.mainInfoText {
+    font-size: 15px;
+    margin-bottom: 30
+}
+
+.buttonClass {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.likeButton {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-top: 10;
+    padding: 7px
+}
+
+.unlikeButton {
+    background-color: rgb(184, 184, 49);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-top: 10;
+    padding: 7px;
+    margin-left: 10px;
+}
+
+.editButton {
+    background-color: rgb(0, 66, 66);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-top: 10;
+    padding: 7px
+}
+/* 
+.fa-pencil {
+    margin-right: 4px;
+} */
+
+.deleteButton {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-top: 10;
+    padding: 7px;
+    margin-left: 10px;
+}
+/* 
+.fa-trash-o {
+    margin-right: 4px;
+} */

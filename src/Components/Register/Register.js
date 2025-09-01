@@ -1,16 +1,25 @@
+import { useNavigate } from "react-router-dom"
 import "./Register.css"
 
 function Register() {
-
-
+    const navigate = useNavigate()
+    const handleLogin = () => {
+        navigate("/login")
+    }
+    const handleRegister = () => {
+        navigate("/register")
+    }
+    const handleBlogs = () => {
+        navigate('/')
+    }
 
     return (
         <div className="mainSection">
             <div className="headerSection">
-                <div className="blogsHeading">Blogs</div>
+                <div onClick={handleBlogs} className="blogsHeading">Blogs</div>
                 <div className="headerRightSection">
-                    <div className="loginRegister">Login</div>
-                    <div className="loginRegister">Register</div>
+                    <button onClick={handleLogin} className="loginRegister">Login</button>
+                    <button onClick={handleRegister} className="loginRegister">Register</button>
                 </div>
             </div>
 
@@ -26,12 +35,12 @@ function Register() {
                     <input type="text" placeholder="test@gmail.com" className="inputBox" />
                     <div className="label">Password</div>
                     <input type="password" placeholder="Test@123" className="inputBox" />
-                    <div><button className="loginButton">Register</button></div>
+                    <div><button onClick={handleLogin}  className="loginButton">Register</button></div>
                 </div>
             </div>
         </div>
 
 
     )
-} 
+}
 export default Register;

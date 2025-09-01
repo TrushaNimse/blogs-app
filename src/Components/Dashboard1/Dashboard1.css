@@ -1,0 +1,73 @@
+.wholeBodySection {
+    background-color: lightgrey;
+    height: 100vh
+}
+
+.headerSection {
+    background-color: navy;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.blogsTitle {
+    font-size: 26px;
+    font-weight: 600;
+    padding: 20px;
+}
+
+.headerRightSection {
+    display: flex;
+}
+
+.headerRightSectionTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 25px;
+    background-color: navy;
+    border: none;
+    color: white;
+}
+.secondSection{
+    /* margin-right: 145;
+    margin-left: 145; */
+    width: 70%;
+    margin-top: 25;
+    background-color: white;
+}
+.secondInnerPortion {
+    background-color: white;
+    padding: 9px;
+    border-radius: 5px;
+   
+}
+
+.inputTitle {
+    border: none;
+    font-size: 26px;
+    font-weight: bold
+}
+
+.textArea {
+    border-radius: 5px;
+    border-color: 1px solid;
+    width: 100%;
+    height: 35%
+}
+
+.buttonSection {
+    display: flex;
+    justify-content: end;
+
+}
+
+.buttonStyle {
+    background-color: navy;
+    color: white;
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+
+}
