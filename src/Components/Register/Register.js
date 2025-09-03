@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import "./Register.css"
+import { useState } from "react";
 
 function Register() {
     const navigate = useNavigate()
@@ -12,7 +13,26 @@ function Register() {
     const handleBlogs = () => {
         navigate('/')
     }
-
+    const[userRegistration, setUserRegistration] = useState({ email: "", password: "",name:"" })
+    function handleRegistrationData() {
+        console.log(userRegistration)
+        navigate("/login")
+    }
+    function handleEmail(event) {
+        let user = { ...userRegistration};
+        user["email"] = event.target.value
+        setUserRegistration(user)
+    }
+    function handlePass(event) {
+        let user = { ...userRegistration };
+        user["password"] = event.target.value
+       setUserRegistration(user)
+    }
+    function handleName(event) {
+        let user = { ...userRegistration };
+        user["name"] = event.target.value
+        setUserRegistration(user)
+    }
     return (
         <div className="mainSection">
             <div className="headerSection">
@@ -30,12 +50,12 @@ function Register() {
                     <hr />
                     <div className="loginText">Register</div>
                     <div className="label">Name</div>
-                    <input type="text" placeholder="Firstname Lastname" className="inputBox" />
+                    <input type="text" placeholder="Firstname Lastname" className="inputBox" value={userRegistration.name} onChange={handleName} />
                     <div className="label">Email id</div>
-                    <input type="text" placeholder="test@gmail.com" className="inputBox" />
+                    <input type="text" placeholder="test@gmail.com" className="inputBox" value={userRegistration.email} onChange={handleEmail} />
                     <div className="label">Password</div>
-                    <input type="password" placeholder="Test@123" className="inputBox" />
-                    <div><button onClick={handleLogin}  className="loginButton">Register</button></div>
+                    <input type="password" placeholder="Test@123" className="inputBox" value={userRegistration.pass} onChange={handlePass}/>
+                    <div><button onClick={handleRegistrationData} className="loginButton">Register</button></div>
                 </div>
             </div>
         </div>
