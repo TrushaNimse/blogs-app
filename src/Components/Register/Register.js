@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import "./Register.css"
 import { useState } from "react";
+import axios from "axios";
 
 function Register() {
     const navigate = useNavigate()
@@ -14,10 +15,10 @@ function Register() {
         navigate('/')
     }
     const[userRegistration, setUserRegistration] = useState({ email: "", password: "",name:"" })
-    function handleRegistrationData() {
-        console.log(userRegistration)
-        navigate("/login")
-    }
+    // function handleRegistrationData() {
+    //     console.log(userRegistration)
+    //     navigate("/login")
+    // }
     function handleEmail(event) {
         let user = { ...userRegistration};
         user["email"] = event.target.value
@@ -33,6 +34,18 @@ function Register() {
         user["name"] = event.target.value
         setUserRegistration(user)
     }
+   const handleRegistrationData = () => {
+    axios.post("http://localhost:3001/user", userRegistration)
+        .then((response) => {
+            console.log(userRegistration);
+            
+            console.log("User saved:", response.data);
+            navigate("/dashboard2");
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+};
     return (
         <div className="mainSection">
             <div className="headerSection">
@@ -54,7 +67,7 @@ function Register() {
                     <div className="label">Email id</div>
                     <input type="text" placeholder="test@gmail.com" className="inputBox" value={userRegistration.email} onChange={handleEmail} />
                     <div className="label">Password</div>
-                    <input type="password" placeholder="Test@123" className="inputBox" value={userRegistration.pass} onChange={handlePass}/>
+                    <input type="password" placeholder="Test@123" className="inputBox" value={userRegistration.password} onChange={handlePass}/>
                     <div><button onClick={handleRegistrationData} className="loginButton">Register</button></div>
                 </div>
             </div>

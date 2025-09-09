@@ -1,20 +1,33 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "./Dashboard2.css"
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 function Dashboard2() {
-    const blogInfo = [{
-        title: "Hello World",
-        CreatedBy: "trushanimse07@gmail.com",
-        CreatedAt: "26 May,2025",
-        Content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus Page Maker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remainin essentially unchanged. It was popularised in the 1960s w ith the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-    },
-    {
-        title: "Hello World",
-        CreatedBy: "trushanimse07@gmail.com",
-        CreatedAt: "26 May,2025",
-        Content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus Page Maker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remainin essentially unchanged. It was popularised in the 1960s w ith the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-    }
-    ]
+    // // const blogInfo = [{
+    // //     title: "Hello World",
+    // //     CreatedBy: "trushanimse07@gmail.com",
+    // //     CreatedAt: "26 May,2025",
+    // //     Content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus Page Maker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remainin essentially unchanged. It was popularised in the 1960s w ith the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    // // },
+    // // {
+    // //     title: "Hello World",
+    // //     CreatedBy: "trushanimse07@gmail.com",
+    // //     CreatedAt: "26 May,2025",
+    // //     Content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus Page Maker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remainin essentially unchanged. It was popularised in the 1960s w ith the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    // // }
+    // ]
+    const [blogs, setBlogs] = useState([]);
+
+useEffect(() => {
+    axios.get("http://localhost:3001/blogs")
+        .then((response) => {
+            setBlogs(response.data);
+        })
+        .catch((error) => {
+            console.error("Error fetching blogs:", error);
+        });
+}, []);
     const [like, setLike] = useState(0);
     const [dislike, setDislike] = useState(0);
 
@@ -31,6 +44,17 @@ function Dashboard2() {
      const handleBlogs = () => {
         navigate('/')
     }
+    const handleDelete = (id) => {
+    axios.delete(`http://localhost:3001/blogs/${id}`)
+        .then(() => {
+            // Remove the deleted blog from state
+            const updatedBlogs = blogs.filter(blog => blog.id !== id);
+            setBlogs(updatedBlogs);
+        })
+        .catch((error) => {
+            console.error("Error deleting blog:", error);
+        });
+};
 
     return (
         <div className="wholeBodySection1">
@@ -60,7 +84,7 @@ function Dashboard2() {
                     </div>
                 </div>
                 <hr />
-                {blogInfo.map((blog) => (
+                {blogs.map((blog) => (
                     <div className="innerTextBox">
                         <strong>{blog.title}</strong>
                         <div className="personalInfoSection">
@@ -74,7 +98,7 @@ function Dashboard2() {
 
                         <hr />
 
-                        <div className="mainInfoText">{blog.Content}
+                        <div className="mainInfoText">{blog.description}
                         </div>
                         <div className="buttonClass">
                             <div>
@@ -83,7 +107,7 @@ function Dashboard2() {
                             </div>
                             <div>
                                 <button  onClick={handlePost} className="editButton"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                                <button className="deleteButton"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                <button onClick={() => handleDelete(blog.id)}  className="deleteButton"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                             </div>
                         </div>
                     </div>
