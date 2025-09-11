@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Login.css"
 import { useState } from "react";
+import axios from "axios";
 
 function Login() {
 
@@ -19,19 +20,45 @@ function Login() {
     // }
     const [userData, setUserData] = useState({ email: "", password: "" })
     function handleLoginData() {
-        console.log(userData)
-        navigate("/dashboard2")
+            console.log(userData)
+            navigate("/dashboard2")
+        }
+        function handleEmail(event){
+            let user={...userData};
+            user["email"]=event.target.value
+            setUserData(user)
+        }
+         function handlePass(event){
+            let user={...userData};
+            user["password"]=event.target.value
+            setUserData(user)
+        }
+        function handleLoginData() {
+            console.log(userData)
+            // navigate("/dashboard2")
+        
+        axios
+            .get("http://localhost:3001/user")
+                .then((response) => {
+                    const users = response.data;
+                    users.map((singleUser) => {
+                        console.log('userData:', userData);
+                        // console.log('singleUser.email_id===userData.email:', singleUser.email_id === userData.email);
+                        // console.log('singleUser.password===userData.password:', singleUser.password === userData.password);
+                        if (singleUser.email_id===userData.email&&singleUser.password===userData.password){
+                            alert("Login Succesfull");
+                            navigate("/dashboard2")
+                        }
+                        else{
+                            alert("Invalid email or password");
+                        }
+                });
+
+
+                })
+            
     }
-    function handleEmail(event){
-        let user={...userData};
-        user["email"]=event.target.value
-        setUserData(user)
-    }
-     function handlePass(event){
-        let user={...userData};
-        user["password"]=event.target.value
-        setUserData(user)
-    }
+
     return (
         <div className="mainSection">
             <div className="headerSection">
@@ -49,9 +76,9 @@ function Login() {
                     <hr />
                     <div className="loginText">Login</div>
                     <div className="label">Emal id</div>
-                    <input type="text" placeholder="test@gmail.com" className="inputBox" name="" value={userData.email} onChange={handleEmail}/>
+                    <input type="text" placeholder="test@gmail.com" className="inputBox" name="" value={userData.email} onChange={handleEmail} />
                     <div className="label">Password</div>
-                    <input type="password" placeholder="Test@123" className="inputBox" value={userData.pass} onChange={handlePass}/>
+                    <input type="password" placeholder="Test@123" className="inputBox" value={userData.pass} onChange={handlePass} />
                     <div><button onClick={handleLoginData} className="loginButton">Login</button></div>
                 </div>
             </div>

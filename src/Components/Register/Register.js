@@ -64,7 +64,7 @@ function Register() {
                     <div className="loginText">Register</div>
                     <div className="label">Name</div>
                     <input type="text" placeholder="Firstname Lastname" className="inputBox" value={userRegistration.name} onChange={handleName} />
-                    <div className="label">Email id</div>
+                 <div className="label">Email id</div>
                     <input type="text" placeholder="test@gmail.com" className="inputBox" value={userRegistration.email} onChange={handleEmail} />
                     <div className="label">Password</div>
                     <input type="password" placeholder="Test@123" className="inputBox" value={userRegistration.password} onChange={handlePass}/>

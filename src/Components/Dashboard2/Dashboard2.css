@@ -104,7 +104,10 @@
 
 .mainInfoText {
     font-size: 15px;
-    margin-bottom: 30
+    margin-bottom: 30;
+    /* text-wrap: 10px; */
+    word-break: break-all;
+
 }
 
 .buttonClass {

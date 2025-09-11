@@ -1,36 +1,67 @@
 import "./Dashboard1.css"
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
 function Dashboard1() {
     const navigate = useNavigate()
-    const handleBlogs = () => {
-        navigate('/')
-    }
-    const [userDescription, setUserDescription] = useState({ title: "", description: "" })
+    const { id } = useParams();
+    console.log('id: ', id)
+    const [userDescription, setUserDescription] = useState({ title: "", description: "" });
+
+    useEffect(() => {
+         
+            axios.get(`http://localhost:3001/blogs/${id}`)
+                .then(response => {
+                    setUserDescription({
+                        title: response.data.title,
+                        description: response.data.description
+                    })
+                })
+                .catch(error => console.error("Error fetching blog:", error));
+        
+    }, [id]);
+    function handleSave() {
+    console.log(userDescription);
+    axios.post(`http://localhost:3001/blogs`, userDescription)
+        .then(() => {
+            navigate("/dashboard2");
+        })
+        .catch(error => console.error("Error creating blog:", error));
+}
+
+
     function handleTitle(event) {
         let user = { ...userDescription };
         user["title"] = event.target.value
         setUserDescription(user)
     }
+
     function handleDescription(event) {
         let user = { ...userDescription };
         user["description"] = event.target.value
         setUserDescription(user)
     }
-    //   function handleDescriptionData() {
-    //     console.log(userDescription)}
-    const handleDescriptionData = () => {
-        axios.post("http://localhost:3001/blogs", userDescription)
-            .then((response) => {
-                console.log(userDescription);
+    const handleBlogs = () => {
+        navigate('/')
+    }
+    function handleCancel() {
+        navigate("/dashboard2");
+    }
+    function handleUpdatedBlog(id) {
+    
+        if (id) {
+            axios.put(`http://localhost:3001/blogs/${id}`, userDescription)
+                .then((response) =>{
+                    navigate("/dashboard2")
+                }) 
+        }
+        else {
+            // axios.post(`http://localhost:3001/blogs`, userDescription)
+            //     .then(() => navigate("/dashboard2"))
+            //    .catch(error => console.error("Error creating blog:", error));
+            handleSave();
+         }
 
-                console.log("User saved:", response.data);
-                navigate("/dashboard2");
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
     };
     return (
         <div className="wholeBodySection">
@@ -51,8 +82,8 @@ function Dashboard1() {
                     <hr />
                     <div><textarea placeholder="Description" className="textArea" value={userDescription.description} onChange={handleDescription}></textarea></div>
                     <div className="buttonSection">
-                        <button className="buttonStyle">Cancel</button>
-                        <button onClick={handleDescriptionData} className="buttonStyle">Save</button>
+                        <button onClick={handleCancel}  className="buttonStyle">Cancel</button>
+                        <button onClick={() => handleUpdatedBlog(id)} className="buttonStyle">Save</button>
                     </div>
                 </div>
             </div>

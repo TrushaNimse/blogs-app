@@ -18,49 +18,75 @@ function Dashboard2() {
     // // }
     // ]
     const [blogs, setBlogs] = useState([]);
-
-useEffect(() => {
-    axios.get("http://localhost:3001/blogs")
-        .then((response) => {
-            setBlogs(response.data);
-        })
-        .catch((error) => {
-            console.error("Error fetching blogs:", error);
-        });
-}, []);
-    const [like, setLike] = useState(0);
-    const [dislike, setDislike] = useState(0);
-
-    function handleLike() {
-        setLike(like + 1);
-    }
-    function handleDislike() {
-        setDislike(dislike + 1);
-    }
     const navigate = useNavigate()
+
+    function handleData() {
+        axios.get("http://localhost:3001/blogs")
+            .then((response) => {
+                setBlogs(response.data.blogs || response.data);
+            })
+            .catch((error)=>{
+                console.error("Error:",error);
+            })
+    }
+    useEffect(()=>{
+        handleData()
+    },[]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3001/blogs")
+            .then((response) => {
+                setBlogs(response.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching blogs:", error);
+            });
+    }, []);
+
     const handlePost = () => {
         navigate("/dashboard1")
     }
-     const handleBlogs = () => {
+    const handleBlogs = () => {
         navigate('/')
     }
+    // const handleEdit = (id) => {
+    //     navigate(`/dashboard1/${id}`);
+    // };
     const handleDelete = (id) => {
-    axios.delete(`http://localhost:3001/blogs/${id}`)
-        .then(() => {
-            // Remove the deleted blog from state
-            const updatedBlogs = blogs.filter(blog => blog.id !== id);
-            setBlogs(updatedBlogs);
-        })
-        .catch((error) => {
-            console.error("Error deleting blog:", error);
-        });
-};
+        axios.delete(`http://localhost:3001/blogs/${id}`)
+            .then(() => {
 
+                const updatedBlogs = blogs.filter(blog => blog.id !== id);
+                setBlogs(updatedBlogs);
+
+            })
+            .catch((error) => {
+                console.error("Error deleting blog:", error);
+            });
+    };
+    const handleLikes = (id, likes) => {
+        axios.patch(`http://localhost:3001/blogs/${id}`, { likes: likes + 1 })
+            .then(() => {
+                handleData()
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            })
+    }
+    const handleDislikes = (id, dislikes) => {
+        axios.patch(`http://localhost:3001/blogs/${id}`, { dislikes: dislikes + 1 })
+            .then(() => {
+                handleData()
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            })
+    }
     return (
         <div className="wholeBodySection1">
 
             <div className="headerSection">
-                <div onClick={handleBlogs}  className="blogsTitle">Blogs</div>
+                <div onClick={handleBlogs} className="blogsTitle">Blogs</div>
                 <div className="headerRightSection">
                     <div className="headerRightSectionTitle">Trusha Nimse</div>
                     <div>
@@ -85,7 +111,7 @@ useEffect(() => {
                 </div>
                 <hr />
                 {blogs.map((blog) => (
-                    <div className="innerTextBox">
+                    <div className="innerTextBox" key={blog.id}>
                         <strong>{blog.title}</strong>
                         <div className="personalInfoSection">
                             <div className="CreationText"><strong>Created By </strong></div>
@@ -97,17 +123,17 @@ useEffect(() => {
                         </div>
 
                         <hr />
-
-                        <div className="mainInfoText">{blog.description}
+                        <div className="mainInfoText">
+                            <div >{blog.description}</div>
                         </div>
                         <div className="buttonClass">
                             <div>
-                                <button className="likeButton" onClick={handleLike}><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {like}</button>
-                                <button className="unlikeButton" onClick={handleDislike}><i class="fa fa-thumbs-o-down" aria-hidden="true"> {dislike}</i></button>
+                                <button className="likeButton" onClick={() => handleLikes(blog.id, blog.likes)}><i class="fa fa-thumbs-o-up" aria-hidden="true">{blog.likes || 0}</i></button>
+                                <button className="unlikeButton" onClick={() => handleDislikes(blog.id, blog.dislikes)}><i class="fa fa-thumbs-o-down" aria-hidden="true">{blog.dislikes || 0}</i></button>
                             </div>
                             <div>
-                                <button  onClick={handlePost} className="editButton"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
-                                <button onClick={() => handleDelete(blog.id)}  className="deleteButton"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                <button onClick={() => navigate(`/dashboard1/${blog.id}`)} className="editButton"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                                <button onClick={() => handleDelete(blog.id)} className="deleteButton"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                             </div>
                         </div>
                     </div>
