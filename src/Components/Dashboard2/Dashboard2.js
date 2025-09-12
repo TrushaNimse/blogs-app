@@ -19,19 +19,22 @@ function Dashboard2() {
     // ]
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate()
+    // const [user, setUser] = useState()
+
+    // const storedUser = localStorage.getItem('userName');
 
     function handleData() {
         axios.get("http://localhost:3001/blogs")
             .then((response) => {
                 setBlogs(response.data.blogs || response.data);
             })
-            .catch((error)=>{
-                console.error("Error:",error);
+            .catch((error) => {
+                console.error("Error:", error);
             })
     }
-    useEffect(()=>{
+    useEffect(() => {
         handleData()
-    },[]);
+    }, []);
 
     useEffect(() => {
         axios.get("http://localhost:3001/blogs")
@@ -88,10 +91,13 @@ function Dashboard2() {
             <div className="headerSection">
                 <div onClick={handleBlogs} className="blogsTitle">Blogs</div>
                 <div className="headerRightSection">
-                    <div className="headerRightSectionTitle">Trusha Nimse</div>
+                    <div className="headerRightSectionTitle">{localStorage.getItem('userName')}</div>
                     <div>
                         {/* <div><i class="fa fa-sign-out" aria-hidden="true"></i></div> */}
-                        <button className="headerRightSectionTitle"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
+                        <button className="headerRightSectionTitle" onClick={() => {
+                            localStorage.removeItem('userName');
+                            navigate("/login");
+                        }}><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button>
                     </div>
                 </div>
             </div>
@@ -106,15 +112,15 @@ function Dashboard2() {
                     </div>
                     <div>
                         {/* <div><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></div> */}
-                        <button onClick={handlePost} className="createButton"><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> create new post</button>
+                        <button onClick={handlePost} className="createButton"><i class="fa fa-plus-circle" aria-hidden="true"></i> create new post</button>
                     </div>
                 </div>
                 <hr />
                 {blogs.map((blog) => (
                     <div className="innerTextBox" key={blog.id}>
-                        <strong>{blog.title}</strong>
+                        <div className="blogTitle">{blog.title}</div>
                         <div className="personalInfoSection">
-                            <div className="CreationText"><strong>Created By </strong></div>
+                            <div className="CreationText"><strong>Created By  </strong></div>
                             <div className="info">{blog.CreatedBy}</div>
                         </div>
                         <div className="personalInfoSection">

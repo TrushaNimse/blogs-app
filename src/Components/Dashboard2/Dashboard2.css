@@ -82,7 +82,10 @@
     border-radius: 5px;
     margin-top: 15px;
 }
-
+.blogTitle{
+    font-size: 28px;
+    font-weight: 400;
+}
 .personalInfoSection {
     display: flex;
     align-items: center;
@@ -92,7 +95,7 @@
 }
 
 .CreationText {
-    font-size: 13px;
+    font-size: 12px;
     font-style: italic;
 
 }

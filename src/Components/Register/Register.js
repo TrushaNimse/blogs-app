@@ -40,7 +40,7 @@ function Register() {
             console.log(userRegistration);
             
             console.log("User saved:", response.data);
-            navigate("/dashboard2");
+            navigate("/login");
         })
         .catch((error) => {
             console.error("Error:", error);

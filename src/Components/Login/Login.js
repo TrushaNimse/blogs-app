@@ -20,43 +20,45 @@ function Login() {
     // }
     const [userData, setUserData] = useState({ email: "", password: "" })
     function handleLoginData() {
-            console.log(userData)
-            navigate("/dashboard2")
-        }
-        function handleEmail(event){
-            let user={...userData};
-            user["email"]=event.target.value
-            setUserData(user)
-        }
-         function handlePass(event){
-            let user={...userData};
-            user["password"]=event.target.value
-            setUserData(user)
-        }
-        function handleLoginData() {
-            console.log(userData)
-            // navigate("/dashboard2")
-        
+        console.log(userData)
+        navigate("/dashboard2")
+    }
+    function handleEmail(event) {
+        let user = { ...userData };
+        user["email"] = event.target.value
+        setUserData(user)
+    }
+    function handlePass(event) {
+        let user = { ...userData };
+        user["password"] = event.target.value
+        setUserData(user)
+    }
+    function handleLoginData() {
+        console.log(userData)
+        // navigate("/dashboard2")
+
         axios
             .get("http://localhost:3001/user")
-                .then((response) => {
-                    const users = response.data;
-                    users.map((singleUser) => {
-                        console.log('userData:', userData);
-                        // console.log('singleUser.email_id===userData.email:', singleUser.email_id === userData.email);
-                        // console.log('singleUser.password===userData.password:', singleUser.password === userData.password);
-                        if (singleUser.email_id===userData.email&&singleUser.password===userData.password){
-                            alert("Login Succesfull");
-                            navigate("/dashboard2")
-                        }
-                        else{
-                            alert("Invalid email or password");
-                        }
+            .then((response) => {
+                const users = response.data;
+                users.map((singleUser) => {
+                    console.log('userData:', userData);
+                    // console.log('singleUser.email_id===userData.email:', singleUser.email_id === userData.email);
+                    // console.log('singleUser.password===userData.password:', singleUser.password === userData.password);
+                    if (singleUser.email === userData.email && singleUser.password === userData.password) {
+                        alert("Login Succesfull");
+                        localStorage.setItem("userName",singleUser.name);
+                        localStorage.setItem("userEmail",singleUser.email);
+                        navigate("/dashboard2")
+                    }
+                    else {
+                        console.log("Invalid email or password");
+                    }
                 });
 
 
-                })
-            
+            })
+
     }
 
     return (
