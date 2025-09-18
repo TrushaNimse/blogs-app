@@ -137,10 +137,13 @@ function Dashboard2() {
                                 <button className="likeButton" onClick={() => handleLikes(blog.id, blog.likes)}><i class="fa fa-thumbs-o-up" aria-hidden="true">{blog.likes || 0}</i></button>
                                 <button className="unlikeButton" onClick={() => handleDislikes(blog.id, blog.dislikes)}><i class="fa fa-thumbs-o-down" aria-hidden="true">{blog.dislikes || 0}</i></button>
                             </div>
-                            <div>
+                            {/* <div> */}
+                            {blog.CreatedBy===localStorage.getItem("userEmail")?(<div>
                                 <button onClick={() => navigate(`/dashboard1/${blog.id}`)} className="editButton"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
                                 <button onClick={() => handleDelete(blog.id)} className="deleteButton"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-                            </div>
+                                </div>):null}
+                                
+                            {/* </div> */}
                         </div>
                     </div>
                 ))}

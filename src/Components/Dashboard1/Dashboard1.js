@@ -7,18 +7,20 @@ function Dashboard1() {
     const navigate = useNavigate()
     const { id } = useParams();
     console.log('id: ', id)
-    const [userDescription, setUserDescription] = useState({ title: "", description: "", likes: "", unlikes: "" });
+    const [userDescription, setUserDescription] = useState({ title: "", description: ""});
     // const [userEmail, setUserEmail] = useState();
     useEffect(() => {
 
         axios.get(`http://localhost:3001/blogs/${id}`)
             .then(response => {
-                setUserDescription({
-                    title: response.data.title,
-                    description: response.data.description,
-                    // likes:response.data.likes,
-                    // unlikes:response.data.unlikes
-                })
+                setUserDescription(response.data
+                //     {
+                //     title: response.data.title,
+                //     description: response.data.description,
+                //     // likes:response.data.likes,
+                //     // unlikes:response.data.unlikes
+                // }
+            )
             })
             .catch(error => console.error("Error fetching blog:", error));
 

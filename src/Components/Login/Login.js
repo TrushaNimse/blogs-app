@@ -41,25 +41,45 @@ function Login() {
             .get("http://localhost:3001/user")
             .then((response) => {
                 const users = response.data;
-                users.map((singleUser) => {
-                    console.log('userData:', userData);
-                    // console.log('singleUser.email_id===userData.email:', singleUser.email_id === userData.email);
-                    // console.log('singleUser.password===userData.password:', singleUser.password === userData.password);
-                    if (singleUser.email === userData.email && singleUser.password === userData.password) {
-                        alert("Login Succesfull");
-                        localStorage.setItem("userName",singleUser.name);
-                        localStorage.setItem("userEmail",singleUser.email);
-                        navigate("/dashboard2")
-                    }
-                    else {
-                        console.log("Invalid email or password");
-                    }
-                });
+                const matchedUser = users.find((singleUser) =>
+                    singleUser.email === userData.email &&
+                    singleUser.password === userData.password
+                );
 
-
-            })
+                if (matchedUser) {
+                    alert("Login Successful");
+                    localStorage.setItem("userName", matchedUser.name);
+                    localStorage.setItem("userEmail", matchedUser.email);
+                    navigate("/dashboard2");
+                } else {
+                    alert("Invalid email or password");
+                }
+            });
 
     }
+    // axios
+    //         .get("http://localhost:3001/user")
+    // .then((response) => {
+    //     const users = response.data;
+    //     users.map((singleUser) => {
+    //         console.log('userData:', userData);
+    //         // console.log('singleUser.email_id===userData.email:', singleUser.email_id === userData.email);
+    //         // console.log('singleUser.password===userData.password:', singleUser.password === userData.password);
+    //         if (singleUser.email === userData.email && singleUser.password === userData.password) {
+    //             alert("Login Succesfull");
+    //             localStorage.setItem("userName",singleUser.name);
+    //             localStorage.setItem("userEmail",singleUser.email);
+    //             navigate("/dashboard2")
+    //         }
+    //         else {
+    //             alert("Invalid email or password");
+    //         }
+    //     });
+
+
+    // })
+
+    // }
 
     return (
         <div className="mainSection">
@@ -80,7 +100,7 @@ function Login() {
                     <div className="label">Emal id</div>
                     <input type="text" placeholder="test@gmail.com" className="inputBox" name="" value={userData.email} onChange={handleEmail} />
                     <div className="label">Password</div>
-                    <input type="password" placeholder="Test@123" className="inputBox" value={userData.pass} onChange={handlePass} />
+                    <input type="password" placeholder="Test@123" className="inputBox" value={userData.password} onChange={handlePass} />
                     <div><button onClick={handleLoginData} className="loginButton">Login</button></div>
                 </div>
             </div>
